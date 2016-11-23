@@ -62,7 +62,7 @@ a.button {
 </p>
 
 <div>
-  <a class="button" href="https://www.skyliner.io/dashboard">Take me back to Skyliner</a>
+  <a class="button" href="https://www.skyliner.io/congratulations">Take me back to Skyliner</a>
 </div>
 
 </body>
