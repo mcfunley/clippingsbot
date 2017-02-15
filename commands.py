@@ -1,7 +1,23 @@
 #!/usr/bin/env python3
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask.ext.api import status
+import os
+import requests
 
 app = Flask('slack-command-flask')
+
+def random_wikipedia_article():
+    resp = requests.get('https://en.wikipedia.org/wiki/Special:Random',
+                        allow_redirects=False)
+    return resp.headers['Location']
+
+@app.route('/commands/demo', methods=['POST'])
+def demo():
+    if request.form.get('token') != os.getenv('SLACK_COMMAND_TOKEN'):
+        return 'Unauthorized', status.HTTP_401_UNAUTHORIZED
+
+    return ('It works! Here is a random Wikipedia article: %s' %
+            random_wikipedia_article())
 
 @app.route('/')
 def index():
