@@ -1,4 +1,4 @@
-FROM python:3.5-alpine
+FROM python:3.6-alpine
 RUN apk add --no-cache supervisor
 ADD . .
 RUN pip install -r ./requirements.txt
