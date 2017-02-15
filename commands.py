@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template
 
-app = Flask('hello-flask')
+app = Flask('slack-command-flask')
 
 @app.route('/')
 def index():
