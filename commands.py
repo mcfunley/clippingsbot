@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import os
 import requests
 
@@ -15,8 +15,11 @@ def demo():
     if request.form.get('token') != os.getenv('SLACK_COMMAND_TOKEN'):
         return 'Unauthorized', 401
 
-    return ('It works! Here is a random Wikipedia article: %s' %
-            random_wikipedia_article())
+    return jsonify({
+        response_type: 'in_channel',
+        text: ('It works! Here is a random Wikipedia article: %s' %
+               random_wikipedia_article()),
+    })
 
 @app.route('/')
 def index():
