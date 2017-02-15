@@ -6,8 +6,10 @@ import requests
 app = Flask('slack-command-flask')
 
 def random_wikipedia_article():
-    resp = requests.get('https://en.wikipedia.org/wiki/Special:Random',
-                        allow_redirects=False)
+    resp = requests.post(
+        'https://en.wikipedia.org/wiki/Special:RandomInCategory',
+        data={ 'wpcategory': 'Dog breeds' },
+        allow_redirects=False)
     return resp.headers['Location']
 
 @app.route('/commands/demo', methods=['POST'])
@@ -18,7 +20,7 @@ def demo():
 
     return jsonify({
         'response_type': 'in_channel',
-        'text': ('It works! Here is a random Wikipedia article: %s' %
+        'text': ('It works! Here is a random wiki about dogs: %s' %
                  random_wikipedia_article()),
     })
 
