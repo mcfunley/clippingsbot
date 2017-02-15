@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template, request
-from flask.ext.api import status
 import os
 import requests
 
@@ -14,7 +13,7 @@ def random_wikipedia_article():
 @app.route('/commands/demo', methods=['POST'])
 def demo():
     if request.form.get('token') != os.getenv('SLACK_COMMAND_TOKEN'):
-        return 'Unauthorized', status.HTTP_401_UNAUTHORIZED
+        return 'Unauthorized', 401
 
     return ('It works! Here is a random Wikipedia article: %s' %
             random_wikipedia_article())
