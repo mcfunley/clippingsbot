@@ -12,10 +12,25 @@ def random_wikipedia_article():
         allow_redirects=False)
     return resp.headers['Location']
 
-@app.route('/commands/demo', methods=['POST'])
-def demo():
+@app.route('/command', methods=['POST'])
+def command():
     if request.form.get('token') != os.getenv('SLACK_COMMAND_TOKEN'):
-        #return 'Unauthorized', 401
+        # TODO:
+        # You should verify that the request is coming from your Slack
+        # instance if you return anything more interesting than a Wikipedia
+        # article about dogs.
+        #
+        # To find your token, visit the configuration page. Go to:
+        # https://<your slack>.slack.com/apps/manage/custom-integrations
+        #
+        # Then choose Slash Commands > Edit configuration (for this command).
+        # Save this token in your Skyliner environment variables for this app
+        # as SLACK_COMMAND_TOKEN.
+        #
+        # You can then enable verification by uncommenting the following
+        # line and removing the pass statement below it.
+        #
+        # return 'Unauthorized', 401
         pass
 
     return jsonify({
