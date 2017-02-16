@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+VERSION="V$(date -u +'%Y_%m_%d_%H_%M_%S')"
+echo "-- -*- sql-dialect: postgres; -*-" > $DIR/../migrations/"$VERSION"__$1.sql

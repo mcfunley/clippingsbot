@@ -1,0 +1,2 @@
+#!/bin/bash
+flyway -user=$USER -password= -locations="filesystem:migrations" -url="jdbc:postgresql:clippingsbot" -schemas=clippingsbot migrate
