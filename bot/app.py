@@ -1,37 +1,26 @@
 #!/usr/bin/env python3
-from flask import Flask, render_template, request, jsonify
+from bot import oauth
+from flask import Flask, render_template, request, jsonify, session
 import os
 import requests
+import uuid
 
 app = Flask('clippingsbot')
+app.secret_key = os.getenv('SECRET_KEY')
 
-@app.route('/command', methods=['POST'])
-def command():
-    if request.form.get('token') != os.getenv('SLACK_COMMAND_TOKEN'):
-        # TODO:
-        # You should verify that the request is coming from your Slack
-        # instance if you return anything more interesting than a Wikipedia
-        # article about dogs.
-        #
-        # To find your token, visit the configuration page. Go to:
-        # https://<your slack>.slack.com/apps/manage/custom-integrations
-        #
-        # Then choose Slash Commands > Edit configuration (for this command).
-        # Save this token in your Skyliner environment variables for this app
-        # as SLACK_COMMAND_TOKEN.
-        #
-        # You can then enable verification by uncommenting the following
-        # line and removing the pass statement below it.
-        #
-        # return 'Unauthorized', 401
-        pass
 
-    return jsonify({
-        'response_type': 'in_channel',
-        'text': ('It works! Here is a random wiki about dogs: %s' %
-                 random_wikipedia_article()),
-    })
+@app.before_request
+def set_session_id():
+    if not session.get('id', None):
+        session['id'] = str(uuid.uuid4())
+
 
 @app.route('/')
 def index():
-    return render_template('index.jinja')
+    return render_template('index.jinja', **{
+        'authorize_url': oauth.authorize_url()
+    })
+
+@app.route('/oauth')
+def oauth_callback():
+    return oauth.callback()

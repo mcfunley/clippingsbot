@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from bot.app import app
 import os
 import sys
 import yaml
@@ -13,4 +12,5 @@ for k, v in d.items():
     os.environ[k] = v
 
 if sys.argv[-1] == 'run':
+    from bot.app import app
     app.run('localhost')
