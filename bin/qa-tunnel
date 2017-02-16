@@ -1,0 +1,5 @@
+#!/bin/bash
+
+IP=`aws --profile construct ec2 describe-instances --filters "Name=tag:environment,Values=qa" "Name=tag:application,Values=slack-clippingsbot" "Name=instance-state-name,Values=running" | jq -r .Reservations[0].Instances[0].NetworkInterfaces[0].Association.PublicIp`
+
+ssh ec2-user@$IP
