@@ -3,14 +3,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 import requests
 
-app = Flask('slack-command-flask')
-
-def random_wikipedia_article():
-    resp = requests.post(
-        'https://en.wikipedia.org/wiki/Special:RandomInCategory',
-        data={ 'wpcategory': 'Dog breeds' },
-        allow_redirects=False)
-    return resp.headers['Location']
+app = Flask('clippingsbot')
 
 @app.route('/command', methods=['POST'])
 def command():
