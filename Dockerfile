@@ -1,7 +1,12 @@
 FROM python:3.6-alpine
-RUN apk add --no-cache supervisor libpq
 ADD . .
-RUN pip install -r ./requirements.txt
+
+ENV BUILD_DEPS="postgresql-dev"
+ENV RUNTIEM_DEPS="supervisor"
+
+RUN apk add --no-cache $BUILD_DEPS $RUNTIME_DEPS && \
+    pip install -r ./requirements.txt && \
+    apk del $BUILD_DEPS
 
 # This is to protect against load balancer keep-alive timeouts; see
 # https://github.com/benoitc/gunicorn/issues/1194 and
