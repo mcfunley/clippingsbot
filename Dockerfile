@@ -1,5 +1,5 @@
 FROM python:3.6-alpine
-RUN apk add --no-cache supervisor
+RUN apk add --no-cache supervisor libpq
 ADD . .
 RUN pip install -r ./requirements.txt
 
