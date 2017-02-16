@@ -14,3 +14,15 @@ bin/migrate
 ```
 
 Make an `env.yaml` file, and put secrets in it.
+
+Running the dev server:
+
+```
+./dev.py run
+```
+
+Getting a dev repl:
+
+```
+python -i dev.py
+```

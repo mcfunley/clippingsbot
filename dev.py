@@ -12,4 +12,5 @@ d = yaml.load(open('env.yaml', 'r').read())
 for k, v in d.items():
     os.environ[k] = v
 
-app.run('localhost')
+if sys.argv[-1] == 'run':
+    app.run('localhost')

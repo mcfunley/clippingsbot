@@ -1,10 +1,15 @@
 click==6.6
+docopt==0.6.2
 Flask==0.11.1
 gunicorn==19.6.0
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
+psycopg2==2.6.2
 pyaml==16.12.2
 PyYAML==3.12
+records==0.5.0
 requests==2.13.0
+SQLAlchemy==1.1.5
+tablib==0.11.4
 Werkzeug==0.11.10
