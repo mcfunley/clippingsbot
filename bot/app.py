@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from bot import oauth
+from bot import oauth, command
 from flask import Flask, render_template, request, jsonify, session
 import os
 import requests
@@ -29,3 +29,7 @@ def oauth_callback():
 @app.route('/installed')
 def installed():
     return render_template('installed.jinja')
+
+@app.route('/command', methods=['POST'])
+def cmd():
+    return command.run()
