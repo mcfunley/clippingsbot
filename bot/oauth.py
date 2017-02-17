@@ -1,3 +1,4 @@
+from bot import team
 import os
 import flask
 import requests
@@ -38,6 +39,5 @@ def callback():
     if not data['ok']:
         return flask.redirect('/?ref=oauth-access-not-ok')
 
-    # todo team.save(data)
-    print(data)
+    team.save(data)
     return flask.redirect('/installed?team-id=%s' % data['team_id'])
