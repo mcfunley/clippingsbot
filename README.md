@@ -13,7 +13,7 @@ createdb clippingsbot
 bin/migrate
 ```
 
-Make an `env.yaml` file, and put secrets in it.
+Make an `env.yaml` file, and put environment variables in it. (You can grep the codebase for `os.getenv` or look at the env settings in Skyliner to get a current list of the ones you need.)
 
 Running the dev server:
 
