@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+env $(cat $DIR/../.env | xargs) gunicorn \
+    --reload \
+    -b 0.0.0.0:5000 \
+    -w 4 bot.app:app \
+    --log-file - --access-logfile -

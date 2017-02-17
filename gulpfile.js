@@ -8,7 +8,7 @@ gulp.task('less', function() {
   return gulp.src('./frontend/less/**/*.less')
     .pipe(sourcemaps.init())
     .pipe(less({
-      paths: [ path.join(__dirname, 'less', 'includes') ]
+      paths: [ path.join(__dirname, 'frontend', 'less', 'includes') ]
     }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./static'));

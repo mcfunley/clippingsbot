@@ -2,3 +2,4 @@ env.yaml
 node_modules
 *pyc
 image.tar
+.env
