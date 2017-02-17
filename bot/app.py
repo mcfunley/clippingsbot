@@ -24,3 +24,7 @@ def index():
 @app.route('/oauth')
 def oauth_callback():
     return oauth.callback()
+
+@app.route('/installed')
+def installed():
+    return render_template('installed.jinja')

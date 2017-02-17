@@ -1,0 +1,25 @@
+{
+  "name": "clippingsbot",
+  "version": "1.0.0",
+  "description": "## Dev setup",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skylinerio/clippingsbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skylinerio/clippingsbot/issues"
+  },
+  "homepage": "https://github.com/skylinerio/clippingsbot#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.3.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sourcemaps": "^2.4.1"
+  }
+}

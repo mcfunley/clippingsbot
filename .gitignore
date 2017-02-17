@@ -1,3 +1,5 @@
 *pyc
 image.tar
 env.yaml
+node_modules
+static
