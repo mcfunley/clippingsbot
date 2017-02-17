@@ -14,7 +14,9 @@ gulp.task('less', function() {
     .pipe(gulp.dest('./static'));
 });
 
+gulp.task('build', ['less']);
+
 gulp.task('watch', function() {
   livereload.listen();
-  gulp.watch('./frontend/less/*.less', ['less']);
+  gulp.watch('./frontend/**', ['build']);
 });
