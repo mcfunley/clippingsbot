@@ -1,74 +1,52 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Clippingsbot</title>
-    <link rel="stylesheet" href="/static/clippingsbot.css" type="text/css">
-  </head>
-  <body>
+{% extends "layout.jinja" %}
 
-    <header>
-      <div class="container">
-        <div class="col-group">
-          <div class="col-mb-12 text-center">
+{% block content %}
+  <header>
+    <div class="container">
+      <div class="col-group">
+        <div class="col-mb-12 text-center">
 
-            <h1 id="title" class="inline-block pos-relative">
-              Clippingsbot
-              <small class="block pos-absolute abs-right">
-                by <a href="https://www.skyliner.io?utm_source=clippingsbot">Skyliner</a>
-              </small>
-            </h1>
+          <h1 id="title" class="inline-block pos-relative">
+            Clippingsbot
+            <small class="block pos-absolute abs-right">
+              by <a href="https://www.skyliner.io?utm_source=clippingsbot">Skyliner</a>
+            </small>
+          </h1>
 
-            <h2>Hacker News notifications for Slack</h2>
+          <h2>Hacker News notifications for Slack</h2>
 
-            <div id="add-button">
-              <a href="{{ authorize_url }}">
-                <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
-              </a>
-            </div>
-
-            <h3></h3>
-
+          <div id="add-button">
+            <a href="{{ authorize_url }}">
+              <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" />
+            </a>
           </div>
+
+          <h3></h3>
+
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <section id="copy">
-      <div class="container">
-        <div class="col-group">
-          <div class="col-offset-1 col-10 col-mb-12">
-            <p>
-              Maybe you're too busy to watch the tech press for your writing, but
-              you'd still like to know if people are talking about it.
-            </p>
-            <p>
-              Maybe you've blocked Hacker News in your hosts file, but it feels
-              a little like having a racoon trapped in the closet.
-              <em class="italic">You can't help wondering what it's doing
-                in there.</em>
-            </p>
-            <p>
-              Either way, Clippingsbot has your back.
-            </p>
-          </div>
+  <section id="copy">
+    <div class="container">
+      <div class="col-group">
+        <div class="col-offset-1 col-10 col-mb-12">
+          <p>
+            Maybe you're too busy to watch the tech press for your writing, but
+            you'd still like to know if people are talking about it.
+          </p>
+          <p>
+            Maybe you've blocked Hacker News in your hosts file, but it feels
+            a little like having a racoon trapped in the closet.
+            <em class="italic">You can't help wondering what it's doing
+              in there.</em>
+          </p>
+          <p>
+            Either way, Clippingsbot has your back.
+          </p>
         </div>
       </div>
-    </section>
-
-    <footer>
-      <div class="container">
-        <div class="col-group">
-          <div class="col-offset-1 col-10 col-mb-12">
-            <p>
-              Clippingsbot is a project by
-              <a href="https://www.skyliner.io?utm_source=clippingsbot">Skyliner</a>,
-              an AWS continuous delivery platform. You can launch your own Slack
-              bot on Skyliner with a few clicks.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </body>
-</html>
+    </div>
+  </section>
+{% endblock %}
