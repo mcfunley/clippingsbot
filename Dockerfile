@@ -2,7 +2,7 @@ FROM python:3.6-alpine
 ADD . .
 
 ENV BUILD_DEPS="postgresql-dev build-base wget"
-ENV RUNTIME_DEPS="supervisor bash openjdk8-jre-base"
+ENV RUNTIME_DEPS="supervisor bash openjdk8-jre-base libpq"
 ENV FLYWAY_VERSION=4.1.1
 
 RUN apk update && \
