@@ -7,7 +7,8 @@ import uuid
 
 app = Flask('clippingsbot')
 app.secret_key = os.getenv('SECRET_KEY')
-
+app.config['TEMPLATES_AUTO_RELOAD'] = bool(
+    os.getenv('TEMPLATES_AUTO_RELOAD', False))
 
 @app.before_request
 def set_session_id():
