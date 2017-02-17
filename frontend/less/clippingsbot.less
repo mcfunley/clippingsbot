@@ -6,20 +6,150 @@
 @tan: rgba(244, 240, 187, 1);
 @brown: rgba(67, 41, 31, 1);
 @sienna: rgba(186, 63, 29, 1);
+@gunmetal: #495762;
+
+// ------------------------------------------------------------------------------
+// overall
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: @sienna;
   height: 100%;
   width: 100%;
+}
+
+a {
+  &, &:visited {
+    color: @tan;
+  }
+  &:hover, &:focus, &:active {
+    color: @light-green;
+  }
+}
+
+
+// ------------------------------------------------------------------------------
+// typography
+
+@h1-size: 80px;
+@h1-mb-size: 40px;
+
+@h2-size: 30px;
+@h2-mb-size: 20px;
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  color: #fff;
+
+}
+
+h1, h2 {
+  letter-spacing: 1.4px;
 }
 
 h1 {
-  font-size: 50px;
+  font-size: @h1-mb-size;
+  @media (min-width: @screenTablet) {
+    font-size: @h1-size;
+  }
+
   font-weight: 200;
+
+  small {
+    font-size: 18px;
+  }
+}
+
+h2 {
+  font-size: @h2-mb-size;
+  @media (min-width: @screenTablet) {
+    font-size: @h2-size;
+  }
+
+  font-weight: 100;
+}
+
+@p-font-size: 24px;
+@p-mb-font-size: 18px;
+
+p {
+  font-size: @p-mb-font-size;
+
+  @media (min-width: @screenTablet) {
+    font-size: @p-font-size;
+    font-weight: 300;
+    letter-spacing: 0.4px;
+    word-spacing: 1.2px;
+    line-height: 1.2;
+  }
+
+  em.italic {
+    word-spacing: -0.2px;
+  }
+}
+
+p + p {
+  margin-top: 25px;
+}
+
+// ------------------------------------------------------------------------------
+// util classes
+
+.text-center { text-align: center; }
+.italic { font-style: italic; }
+
+.inline-block { display: inline-block; }
+.block { display: block; }
+
+.pos-relative { position: relative; }
+.pos-absolute { position: absolute; }
+.abs-right { right: 0; }
+
+// ------------------------------------------------------------------------------
+// page
+
+header, section, footer {
+  display: table;
+  width: 100%;
+  padding: 70px 0;
+}
+
+header {
+  background-color: @sienna;
+  color: #fff;
+
+  h1#title {
+    height: (2 * @h1-mb-size);
+    small {
+      top: (@h1-mb-size + 7px);
+    }
+
+    @media (min-width: @screenTablet) {
+      height: (2 * @h1-size);
+      small {
+        top: (@h1-size + 7px);
+      }
+    }
+  }
+
+  h2 {
+    margin-top: 40px;
+  }
+
+  #add-button {
+    padding: 70px 0 0 0;
+  }
+}
+
+footer {
+  background-color: @gunmetal;
+  color: #fff;
+
+  p {
+    font-size: (@p-mb-font-size * 0.8);
+    @media (min-width: @screenTablet) {
+      font-size: (@p-font-size * 0.8);
+    }
+  }
 }

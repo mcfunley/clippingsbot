@@ -21,5 +21,6 @@
     "gulp-less": "^3.3.0",
     "gulp-livereload": "^3.8.1",
     "gulp-sourcemaps": "^2.4.1"
-  }
+  },
+  "dependencies": {}
 }
