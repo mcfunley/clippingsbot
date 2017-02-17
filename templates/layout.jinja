@@ -6,22 +6,26 @@
   </head>
   <body>
 
-    {% block content %}{% endblock %}
+    <div id="page-wrapper">
 
-    <footer>
-      <div class="container">
-        <div class="col-group">
-          <div class="col-offset-1 col-10 col-mb-12">
-            <p>
-              Clippingsbot is a project by
-              <a href="https://www.skyliner.io?utm_source=clippingsbot">Skyliner</a>,
-              an AWS continuous delivery platform. You can launch your own Slack
-              bot on Skyliner with a few clicks.
-            </p>
+      {% block content %}{% endblock %}
+
+      <footer>
+        <div class="container">
+          <div class="col-group">
+            <div class="col-offset-1 col-10 col-mb-12">
+              <p>
+                Clippingsbot is a project by
+                <a href="https://www.skyliner.io?utm_source=clippingsbot">Skyliner</a>,
+                an AWS continuous delivery platform. You can launch your own Slack
+                bot on Skyliner with a few clicks.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+    </div>
 
   </body>
 </html>

@@ -1,0 +1,46 @@
+{% extends "layout.jinja" %}
+
+{% block content %}
+
+  <header class="smaller">
+    <div class="container">
+      <div class="col-group">
+        <div class="col-mb-12">
+          <h1>Clippingsbot
+            <small id="subtitle">
+              by <a href="https://www.skyliner.io?utm_source=clippingsbot&utm_term=installed">Skyliner</a>
+            </small>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="col-group">
+        <div class="col-offset-1 col-10 col-mb-12">
+          <h2 id="installed-heading" class="wt300">
+            Ok! You're all set. To get started, try some commands in Slack.
+          </h2>
+
+          <p>
+            Use this to watch for a term:
+            <code>
+              <span class="command">/clippingsbot watch</span> my company name
+            </code>
+          </p>
+
+          <p>
+            Use this to get a full list of commands:
+            <code>
+              <span class="command">/clippingsbot help</span>
+            </code>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock %}

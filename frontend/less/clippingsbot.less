@@ -11,13 +11,27 @@
 // ------------------------------------------------------------------------------
 // overall
 
+@footer-height: 190px;
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 body {
   height: 100%;
   width: 100%;
+  margin-bottom: 186px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 190px;
 }
 
 a {
@@ -93,6 +107,20 @@ p + p {
   margin-top: 25px;
 }
 
+code {
+  margin-top: 10px;
+  font-family: Menlo, 'DejaVu Sans Mono', 'Lucida Console', monospace;
+  font-weight: 200;
+  padding: 20px;
+  background-color: #eee;
+  display: inline-block;
+  width: 100%;
+
+  .command {
+    color: @dark-green;
+  }
+}
+
 // ------------------------------------------------------------------------------
 // util classes
 
@@ -105,6 +133,8 @@ p + p {
 .pos-relative { position: relative; }
 .pos-absolute { position: absolute; }
 .abs-right { right: 0; }
+
+.wt300 { font-weight: 300; }
 
 // ------------------------------------------------------------------------------
 // page
@@ -142,6 +172,21 @@ header {
   }
 }
 
+header.smaller {
+  padding: 30px 0;
+
+  h1 {
+    font-size: @h2-mb-size;
+    @media (min-width: @screenTablet) {
+      font-size: @h2-size;
+    }
+  }
+
+  small#subtitle {
+    font-size: 14px;
+  }
+}
+
 footer {
   background-color: @gunmetal;
   color: #fff;
@@ -152,4 +197,8 @@ footer {
       font-size: (@p-font-size * 0.8);
     }
   }
+}
+
+#installed-heading {
+  margin-bottom: 40px;
 }
