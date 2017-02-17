@@ -3,26 +3,35 @@
 ## Dev setup
 
 ```
-brew install flyway pyenv pyenv-virtualenv postgresql
+brew install flyway pyenv pyenv-virtualenv postgresql yarn nodejs
 
 pyenv virtualenv 3.6.0 clippingsbot
 pyenv activate clippingsbot
 pip install -r requirements.txt
 
+yarn install
+yarn global add gulp-cli
+
 createdb clippingsbot
 bin/migrate
 ```
 
-Make an `env.yaml` file, and put environment variables in it. (You can grep the codebase for `os.getenv` or look at the env settings in Skyliner to get a current list of the ones you need.)
+Make a `.env` file, and put environment variables in it (`X="Y"` syntax). You can grep the codebase for `os.getenv` or look at the env settings in Skyliner to get a current list of the ones you need.
 
 Running the dev server:
 
 ```
-./dev.py run
+bin/dev
 ```
 
-Getting a dev repl:
+Also run the frontend:
 
 ```
-python -i dev.py
+gulp watch
+```
+
+To get a dev repl:
+
+```
+bin/repl
 ```
