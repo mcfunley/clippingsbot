@@ -4,7 +4,7 @@ import flask
 import requests
 from urllib.parse import urlencode
 
-slack_scope = 'chat:write:bot'
+slack_scope = 'chat:write:bot,commands'
 
 def authorize_url():
     params = {
