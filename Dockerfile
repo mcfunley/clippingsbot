@@ -22,6 +22,7 @@ RUN echo -e 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/rep
 
     # python
     pip install -r ./requirements.txt && \
+    python -m unittest -v && \
 
     apk del $BUILD_DEPS && \
     rm -rf /tmp/* /var/cache/*
