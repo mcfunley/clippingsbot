@@ -45,6 +45,9 @@ def watch(phrase):
     if not t:
         return 'Bad request', 400
 
+    if team.count_patterns(t) >= 100:
+        return 'Sorry, you can watch a maximum of 100 phrases.'
+
     pattern_id = patterns.save(phrase)
     team.watch(t, phrase, pattern_id)
     return "Ok, I'm watching for mentions of the phrase `%s`." % phrase
