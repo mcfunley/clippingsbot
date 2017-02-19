@@ -7,7 +7,10 @@ dburl = '%s?user=%s&password=%s' % (
     os.getenv('DATABASE_USER'),
     os.getenv('DATABASE_PASSWORD'))
 
-engine = create_engine(dburl)
+if not os.getenv('TESTING', None):
+    engine = create_engine(dburl)
+else:
+    engine = None
 
 
 def connect():
