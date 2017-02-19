@@ -1,24 +1,27 @@
-from bot import team
+from bot import team, patterns
 import flask
 import os
 import re
 
-usage = """Usage: `/clippingsbot [command] [arguments]`
+usage = """*Usage*:
+`/clippingsbot [command] [arguments]`
 
-Commands:
-
-`help`     Display this help.
-`watch`    Watch for mentions of a phrase.
-`stop`     Stop watching for mentions of a phrase.
-`list`     List phrases currently being watched.
-
-Examples:
-
+*Commands*:
 ```
-  /clippingsbot watch foo bar
-  /clippingsbot stop foo bar
+help      Display this help.
+watch     Watch for mentions of a phrase.
+stop      Stop watching for mentions of a phrase.
+list      List phrases currently being watched.
+feedback  Send feedback or bug reports about clippingsbot.
+```
+
+*Examples*:
+```
+/clippingsbot watch foo bar
+/clippingsbot stop foo bar
 ```
 """
+
 
 def show_help():
     return flask.jsonify({
@@ -34,7 +37,16 @@ def watch(phrase):
     if len(phrase) < 6:
         return 'Sorry, the phrase must be six or more characters.'
 
-    # todo
+    team_id = flask.request.form.get('team_id', None)
+    if not team_id:
+        return 'Bad request', 400
+
+    t = team.find(team_id)
+    if not t:
+        return 'Bad request', 400
+
+    pattern_id = patterns.save(phrase)
+    team.watch(t, phrase, pattern_id)
     return "Ok, I'm watching for mentions of the phrase `%s`." % phrase
 
 
@@ -51,6 +63,20 @@ def stop(phrase):
 def parse():
     cmd, *args = re.split('\s+', flask.request.form['text'].strip())
     return cmd.lower(), args
+
+
+def list_patterns():
+    team_id = flask.request.form.get('team_id', None)
+    if not team_id:
+        return 'Bad request', 400
+
+    t = team.find(team_id)
+    if not t:
+        return 'Bad request', 400
+
+    return 'I am watching for mentions of the following phrases: %s' % (
+        ','.join(['`%s`' % p['display_pattern'] for p in team.find_patterns(t)]),
+    )
 
 
 def run():
@@ -70,8 +96,7 @@ def run():
     elif cmd == 'stop':
         return stop(' '.join(args))
     elif cmd == 'list':
-        # todo
-        pass
+        return list_patterns()
 
     return show_help()
 

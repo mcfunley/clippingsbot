@@ -17,6 +17,23 @@ def save(data):
     return db.connect().query(sql, **data).next()[0]
 
 def find(team_id):
-    return db.connect().query("""
+    for t in db.connect().query("""
     select * from clippingsbot.teams where team_id = :team_id
-    """, team_id = team_id).next()
+    """, team_id = team_id):
+        return t
+
+def watch(team, pattern, pattern_id):
+    sql = """
+    insert into clippingsbot.team_patterns (team_id, pattern_id, display_pattern)
+    values (:team_id, :pattern_id, :pattern)
+    on conflict (team_id, pattern_id) do nothing
+    """
+    db.connect().query(
+        sql, team_id=team['team_id'], pattern_id=pattern_id, pattern=pattern
+    )
+
+def find_patterns(team):
+    sql = """
+    select * from clippingsbot.team_patterns where team_id = :team_id
+    """
+    return db.connect().query(sql, team_id=team['team_id']).all()
