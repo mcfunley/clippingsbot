@@ -8,4 +8,4 @@ def save(pattern):
     set pattern = lower(:pattern)
     returning pattern_id
     """
-    return db.connect().query(sql, pattern=pattern).next()[0]
+    return db.scalar(sql, pattern=pattern)

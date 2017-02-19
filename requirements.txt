@@ -8,7 +8,6 @@ MarkupSafe==0.23
 psycopg2==2.6.2
 pyaml==16.12.2
 PyYAML==3.12
-records==0.5.0
 requests==2.13.0
 SQLAlchemy==1.1.5
 tablib==0.11.4

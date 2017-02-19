@@ -14,14 +14,13 @@ def save(data):
 
     returning team_id
     """
-    return db.connect().query(sql, **data).next()[0]
+    return db.scalar(sql, **data)
 
 
 def find(team_id):
-    for t in db.connect().query("""
-    select * from clippingsbot.teams where team_id = :team_id
-    """, team_id = team_id):
-        return t
+    return db.find_one(
+        'select * from clippingsbot.teams where team_id = :team_id',
+        team_id = team_id)
 
 
 def watch(team, pattern, pattern_id):
@@ -30,7 +29,7 @@ def watch(team, pattern, pattern_id):
     values (:team_id, :pattern_id, :pattern)
     on conflict (team_id, pattern_id) do nothing
     """
-    db.connect().query(
+    db.execute(
         sql, team_id=team['team_id'], pattern_id=pattern_id, pattern=pattern
     )
 
@@ -39,11 +38,19 @@ def find_patterns(team):
     sql = """
     select * from clippingsbot.team_patterns where team_id = :team_id
     """
-    return db.connect().query(sql, team_id=team['team_id']).all()
+    return db.find(sql, team_id=team['team_id'])
 
 
 def count_patterns(team):
     sql = """
     select count(*) from clippingsbot.team_patterns where team_id = :team_id
     """
-    return db.connect().query(sql, team_id=team['team_id']).next()[0]
+    return db.scalar(sql, team_id=team['team_id'])
+
+
+def stop(team, pattern):
+    sql = """
+    delete from clippingsbot.team_patterns
+    where team_id = :team_id and lower(display_pattern) = lower(:pattern)
+    """
+    db.execute(sql, team_id=team['team_id'], pattern=pattern)

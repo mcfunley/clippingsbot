@@ -55,12 +55,18 @@ def watch(phrase):
 
 def stop(phrase):
     if not len(phrase):
-        return 'Sorry, I need a phrase. Usage: `/clippingsbot stop <phrase>`'
+        return 'Sorry, I need a phrase. Usage: `/clippingsbot watch <phrase>`.'
 
-    # todo
+    team_id = flask.request.form.get('team_id', None)
+    if not team_id:
+        return 'Bad request', 400
 
-    return ('Ok, I will no longer notify you about '
-            'mentions of the phrase `%s`.' % phrase)
+    t = team.find(team_id)
+    if not t:
+        return 'Bad request', 400
+
+    team.stop(t, phrase)
+    return "Ok, I won't alert you about mentions of `%s`" % phrase
 
 
 def parse():
