@@ -1,4 +1,4 @@
-from bot import crawl
+from bot import crawl, notify
 from boto import sqs
 import json
 import os
@@ -14,7 +14,7 @@ def run():
             if data.get('message_type', None) == 'crawl':
                 crawl.run()
             elif data.get('message_type', None) == 'notify':
-                pass
+                notify.run()
 
             conn.delete_message(q, message)
             print('Deleted message: %s' % message.get_body())
