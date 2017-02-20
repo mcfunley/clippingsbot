@@ -41,6 +41,10 @@ def watch(phrase):
     if not team_id:
         return 'Bad request', 400
 
+    channel_id = flask.request.form.get('channel_id', None)
+    if not channel_id:
+        return 'Bad request', 400
+
     t = team.find(team_id)
     if not t:
         return 'Bad request', 400
@@ -49,8 +53,9 @@ def watch(phrase):
         return 'Sorry, you can watch a maximum of 100 phrases.'
 
     pattern_id = patterns.save(phrase)
-    team.watch(t, phrase, pattern_id)
-    return "Ok, I'm watching for mentions of the phrase `%s`." % phrase
+    team.watch(t, channel_id, phrase, pattern_id)
+    return ("Ok, I'm watching for mentions of the phrase `%s` "
+            "in this channel." % phrase)
 
 
 def stop(phrase):
@@ -61,12 +66,17 @@ def stop(phrase):
     if not team_id:
         return 'Bad request', 400
 
+    channel_id = flask.request.form.get('channel_id', None)
+    if not channel_id:
+        return 'Bad request', 400
+
     t = team.find(team_id)
     if not t:
         return 'Bad request', 400
 
-    team.stop(t, phrase)
-    return "Ok, I won't alert you about mentions of `%s`" % phrase
+    team.stop(t, channel_id, phrase)
+    return ("Ok, I won't alert you about mentions of `%s` "
+            "in this channel." % phrase)
 
 
 def parse():
@@ -79,13 +89,43 @@ def list_patterns():
     if not team_id:
         return 'Bad request', 400
 
+    channel_id = flask.request.form.get('channel_id', None)
+    if not channel_id:
+        return 'Bad request', 400
+
     t = team.find(team_id)
     if not t:
         return 'Bad request', 400
 
-    return 'I am watching for mentions of the following phrases: %s' % (
-        ','.join(['`%s`' % p['display_pattern'] for p in team.find_patterns(t)]),
-    )
+    channel_id = flask.request.form.get('channel_id', None)
+    if not channel_id:
+        return 'Bad request', 400
+
+    channel_watches = list(team.find_patterns(t, channel_id))
+    other_channels_count = team.count_other_channel_patterns(t, channel_id)
+
+    if other_channels_count > 0:
+        if other_channels_count > 1:
+            other_channels_msg = ('I am watching for %s phrases in other '
+                                  'channels.' % other_channels_count)
+        else:
+            other_channels_msg = ('I am watching for one phrase in '
+                                  'another channel.')
+
+    if not len(channel_watches):
+        if other_channels_count == 0:
+            return 'I am not currently watching for any phrases.'
+        else:
+            return other_channels_msg
+
+    phrase_list = ','.join(['`%s`' % p['display_pattern']
+                            for p in channel_watches])
+    msg = ('I am watching for mentions of the following phrases '
+           'in this channel: %s.' % phrase_list)
+    if other_channels_count == 0:
+        return msg
+
+    return '%s %s' % (msg, other_channels_msg)
 
 
 def run():
