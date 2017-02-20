@@ -110,4 +110,7 @@ def run():
 
     for p in patterns.find_all():
         for mention in idx.search(p['pattern']):
+            print('Found mention of "%s" on %s (%s)' % (
+                p['pattern'], mention['link_url'], mention['feed']
+            ))
             mentions.save(p, mention)

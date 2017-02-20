@@ -34,8 +34,8 @@ def watch(phrase):
     if not len(phrase):
         return 'Sorry, I need a phrase. Usage: `/clippingsbot watch <phrase>`.'
 
-    if len(phrase) < 6:
-        return 'Sorry, the phrase must be six or more characters.'
+    if len(phrase) < 4:
+        return 'Sorry, the phrase must be four or more characters.'
 
     team_id = flask.request.form.get('team_id', None)
     if not team_id:
