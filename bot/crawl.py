@@ -49,9 +49,9 @@ class Entry(object):
         return {
             'phrase': phrase,
             'feed': self.feed_name,
-            'discussion_url': self.original['comments'],
-            'reference_url': self.original['link'],
             'title': self.original['title'],
+            'comments_url': self.original['comments'],
+            'link_url': self.original['link'],
         }
 
 
