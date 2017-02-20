@@ -40,4 +40,4 @@ bin/repl
 
 **Do not write code that refers to `AWS_SECRET_ACCESS_KEY` and `AWS_ACCESS_KEY_ID`**.
 
-Use [credentials files](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-config-files). The `AWS_DEFAULT_PROFILE` env var with [named profiles](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-multiple-profiles) is handy if you are juggling multiple accounts.
+Use [credentials files](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-config-files). The `AWS_PROFILE` env var with [named profiles](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-multiple-profiles) is handy if you are juggling multiple accounts.
