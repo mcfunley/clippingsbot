@@ -9,3 +9,12 @@ def save(pattern):
     returning pattern_id
     """
     return db.scalar(sql, pattern=pattern)
+
+def find_all():
+    return db.find("""
+        select *
+        from clippingsbot.patterns p
+        where exists (
+          select 1 from clippingsbot.team_patterns tp
+          where tp.pattern_id = p.pattern_id
+        )""")
