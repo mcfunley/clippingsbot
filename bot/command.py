@@ -149,6 +149,3 @@ def run():
         return list_patterns()
 
     return show_help()
-
-
-# ***REMOVED***

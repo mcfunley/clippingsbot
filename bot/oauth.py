@@ -1,4 +1,4 @@
-from bot import team
+from bot import team, monitor
 import os
 import sys
 import flask
@@ -19,7 +19,7 @@ def authorize_url():
 def callback():
     req = flask.request
     if flask.session['id'] != req.args.get('state'):
-        logger.warning('Session ID mismatch in oauth callback: %s != %s',
+        monitor.notify('Session ID mismatch in oauth callback: %s != %s',
                        flask.session['id'], req.args.get('state'))
         return flask.redirect('/?ref=bad-oauth-state')
 
@@ -39,8 +39,10 @@ def callback():
     data = r.json()
     if not data['ok']:
         vals = ','.join(['%s=%s' % (k, v) for k, v in data.items()])
-        print('oauth was not ok: %s' % vals, file=sys.stderr)
+        monitor.notify('oauth was not ok: %s' % vals)
         return flask.redirect('/?ref=oauth-access-not-ok')
 
     team.save(data)
+    monitor.notify('User %s authorized team: %s (%s)' % (
+        data['user_name'], data['team_domain'], data['team_id']))
     return flask.redirect('/installed?team-id=%s' % data['team_id'])
