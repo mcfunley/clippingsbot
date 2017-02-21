@@ -143,8 +143,10 @@ def list_patterns():
     return '%s %s' % (msg, other_channels_msg)
 
 
-def feedback(args):
-    pass
+def feedback(text):
+    notify('Feedback: "%s"' % text)
+    return ("Thanks! We've got your feedback. If you need more help "
+            "you can email support@skyliner.io."
 
 
 def run():
