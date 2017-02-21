@@ -70,4 +70,4 @@ def cmd():
 
 @app.route('/favicon.ico', methods=['GET'])
 def favicon():
-    return send_file('static/favicon.ico', mimetype='image/x-icon')
+    return send_file('static/favicon/favicon.ico', mimetype='image/x-icon')

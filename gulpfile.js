@@ -6,6 +6,11 @@ var livereload = require('gulp-livereload');
 var favicons = require('gulp-favicons');
 var util = require('gulp-util');
 
+gulp.task('images', function() {
+  return gulp.src('./frontend/img/*')
+    .pipe(gulp.dest('./static/img'));
+});
+
 gulp.task('favicons', function() {
   return gulp.src('./frontend/img/clippingsbot.png')
     .pipe(favicons({}))
@@ -21,7 +26,7 @@ gulp.task('less', function() {
     .pipe(gulp.dest('./static'));
 });
 
-gulp.task('build', ['less', 'favicons']);
+gulp.task('build', ['less', 'favicons', 'images']);
 
 gulp.task('watch', function() {
   livereload.listen();
