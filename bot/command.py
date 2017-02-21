@@ -21,6 +21,8 @@ feedback  Send feedback or bug reports about clippingsbot.
 /clippingsbot watch several words
 /clippingsbot stop foobar.com
 ```
+
+Want to build your own Slackbot? Try <https://www.skyliner.io|Skyliner>.
 """
 
 
