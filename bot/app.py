@@ -2,9 +2,8 @@
 from bot import oauth, command
 from flask import (
     Flask, render_template, request, jsonify, session, redirect,
-    send_file
+    send_file, Response
 )
-from flask_basicauth import BasicAuth
 import os
 import requests
 import uuid
@@ -17,16 +16,16 @@ app.secret_key = os.getenv('SECRET_KEY')
 app.config['TEMPLATES_AUTO_RELOAD'] = bool(
     os.getenv('TEMPLATES_AUTO_RELOAD', False))
 
-if os.getenv('BASIC_AUTH_USERNAME', None):
-    app.config['BASIC_AUTH_FORCE'] = True
-    app.config['BASIC_AUTH_USERNAME'] = os.getenv('BASIC_AUTH_USERNAME')
-    app.config['BASIC_AUTH_PASSWORD'] = os.getenv('BASIC_AUTH_PASSWORD')
-
 
 @app.before_request
 def set_session_id():
     if not session.get('id', None):
         session['id'] = str(uuid.uuid4())
+
+
+def is_healthcheck():
+    request_url = urlparse(request.url)
+    return request_url.path == '/health'
 
 
 @app.before_request
@@ -35,8 +34,7 @@ def redirect_canonical_host():
     if not canonical:
         return
 
-    request_url = urlparse(request.url)
-    if request_url.path == '/health':
+    if is_healthcheck():
         return
 
     u = list(request_url)
@@ -44,6 +42,25 @@ def redirect_canonical_host():
     if u[0:2] != c[0:2]:
         u[0:2] = c[0:2]
         return redirect(urlunparse(u), code=303)
+
+
+@app.before_request
+def force_basic_auth():
+    user = os.getenv('BASIC_AUTH_USERNAME', None)
+    pw = os.getenv('BASIC_AUTH_PASSWORD', None)
+
+    if not user:
+        return
+
+    if is_healthcheck():
+        return
+
+    auth = request.authorization
+    if not auth or not (auth.username == user and auth.password == pw):
+        return Response(
+            'Authorization required', 401, {
+                'WWW-Authenticate': 'Basic realm="Login Required"'
+            })
 
 
 @app.route('/')
