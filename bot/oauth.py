@@ -28,7 +28,7 @@ def callback():
 
     r = requests.get('https://slack.com/api/oauth.access', params={
         'code': req.args.get('code'),
-        'redirect_uri': os.getenv('CALLBACK_URI'),
+        'redirect_uri': os.getenv('CALLBACK_URL'),
         'client_id': os.getenv('SLACK_CLIENT_ID'),
         'client_secret': os.getenv('SLACK_CLIENT_SECRET'),
     })
