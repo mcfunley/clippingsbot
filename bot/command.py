@@ -17,8 +17,9 @@ feedback  Send feedback or bug reports about clippingsbot.
 
 *Examples*:
 ```
-/clippingsbot watch foo bar
-/clippingsbot stop foo bar
+/clippingsbot watch foobar.com
+/clippingsbot watch several words
+/clippingsbot stop foobar.com
 ```
 """
 
