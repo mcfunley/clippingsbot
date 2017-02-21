@@ -1,4 +1,4 @@
-from bot import db, patterns, mentions
+from bot import db, patterns, mentions, monitor
 from collections import defaultdict
 import feedparser
 import re
@@ -108,9 +108,15 @@ def build_index():
 def run():
     idx = build_index()
 
+    found = 0
+
     for p in patterns.find_all():
         for mention in idx.search(p['pattern']):
+            found += 1
             print('Found mention of "%s" on %s (%s)' % (
                 p['pattern'], mention['link_url'], mention['feed']
             ))
             mentions.save(p, mention)
+
+    if found > 0:
+        monitor.notify('Crawler found %s mentions.' % found)

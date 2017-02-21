@@ -1,4 +1,4 @@
-from bot import db, team
+from bot import db, team, monitor
 import requests
 from slackclient import SlackClient
 
@@ -68,6 +68,11 @@ def record(pending_notification):
     )
 
 def run():
+    sent = 0
     for pending_notification in db.find(pending_sql):
+        sent += 1
         post(pending_notification)
         record(pending_notification)
+
+    if sent > 0:
+        monitor.notify('notifier sent %s notifications' % sent)
