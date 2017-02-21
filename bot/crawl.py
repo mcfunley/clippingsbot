@@ -112,11 +112,12 @@ def run():
 
     for p in patterns.find_all():
         for mention in idx.search(p['pattern']):
-            found += 1
             print('Found mention of "%s" on %s (%s)' % (
                 p['pattern'], mention['link_url'], mention['feed']
             ))
-            mentions.save(p, mention)
+            created = mentions.save(p, mention)
+            if created:
+                found += 1
 
     if found > 0:
         monitor.notify('Crawler found %s mentions.' % found)
