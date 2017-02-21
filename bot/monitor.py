@@ -16,7 +16,7 @@ def _notify(message):
     requests.post(webhook_url, json={
         'text': '%s%s' % (message, env_text),
         'username': 'clippingsbot',
-        'icon_emoji': ':cloudyell:',
+        'icon_url': 'https://www.clippingsbot.com/static/img/logo-120.png',
     })
 
 
