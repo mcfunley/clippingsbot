@@ -22,19 +22,19 @@ order by m.created asc limit 50;
 
 
 def message(pending_notification):
-    feed = {
-        'homepage': ' (homepage)',
-        'newest': ' (new submissions)',
-    }.get(pending_notification['feed'], '')
+    if pending_notification['feed'] == 'homepage':
+        fmt = ('A mention of `%s` made the Hacker News homepage: \n'
+               '<%s|%s> [<%s|comments>]')
+    elif pending_notification['feed'] == 'newest':
+        fmt = ('New submission mentioning `%s` on Hacker News: \n'
+               '<%s|%s> [<%s|comments>]')
 
-    return ('Mention of `%s` on Hacker News%s: \n'
-            '<%s|%s> [<%s|comments>]' % (
-                pending_notification['display_pattern'],
-                feed,
-                pending_notification['link_url'],
-                pending_notification['title'],
-                pending_notification['comments_url'],
-            ))
+    return fmt % (
+        pending_notification['display_pattern'],
+        pending_notification['link_url'],
+        pending_notification['title'],
+        pending_notification['comments_url'],
+    )
 
 
 def post(pending_notification):
