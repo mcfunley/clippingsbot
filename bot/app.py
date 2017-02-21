@@ -28,6 +28,10 @@ def set_session_id():
 
 @app.before_request
 def redirect_canonical_host():
+    print(request.url)
+    print(request.headers)
+    return
+
     canonical = os.getenv('CANONICAL_HOST', None)
     if not canonical:
         return
