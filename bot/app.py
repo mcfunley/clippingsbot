@@ -37,7 +37,7 @@ def redirect_canonical_host():
     if is_healthcheck():
         return
 
-    u = list(request_url)
+    u = list(urlparse(request.url))
     c = list(urlparse(canonical))
     if u[0:2] != c[0:2]:
         u[0:2] = c[0:2]
