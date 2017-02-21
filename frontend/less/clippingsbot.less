@@ -25,13 +25,21 @@ html {
 body {
   height: 100%;
   width: 100%;
-  margin-bottom: 186px;
+
+  margin-bottom: 235px;
+  @media (min-width: @screenTablet) {
+    margin-bottom: 190px;
+  }
 }
 
 footer {
   position: absolute;
   bottom: 0;
-  height: 190px;
+
+  height: 235px;
+  @media (min-width: @screenTablet) {
+    height: 190px;
+  }
 }
 
 a {
@@ -55,7 +63,7 @@ a {
 @h1-mb-size: 40px;
 
 @h2-size: 30px;
-@h2-mb-size: 20px;
+@h2-mb-size: 25px;
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -119,6 +127,11 @@ code {
   background-color: #eee;
   display: inline-block;
   width: 100%;
+  font-size: 14px;
+
+  @media (min-width: @screenTablet) {
+    font-size: @p-font-size;
+  }
 
   .command {
     color: @dark-green;
