@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from bot import oauth, command
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import (
+    Flask, render_template, request, jsonify, session, redirect,
+    send_file
+)
 from flask_basicauth import BasicAuth
 import os
 import requests
@@ -64,3 +67,7 @@ def installed():
 @app.route('/command', methods=['POST'])
 def cmd():
     return command.run()
+
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+    return send_file('static/favicon.ico', mimetype='image/x-icon')

@@ -18,6 +18,7 @@
   "homepage": "https://github.com/skylinerio/clippingsbot#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-favicons": "^2.2.7",
     "gulp-less": "^3.3.0",
     "gulp-livereload": "^3.8.1",
     "gulp-sourcemaps": "^2.4.1"
