@@ -146,7 +146,7 @@ def list_patterns():
 def feedback(text):
     notify('Feedback: "%s"' % text)
     return ("Thanks! We've got your feedback. If you need more help "
-            "you can email support@skyliner.io."
+            "you can email support@skyliner.io.")
 
 
 def run():
