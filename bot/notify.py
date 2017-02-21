@@ -8,7 +8,7 @@ select m.pattern_id, m.feed, m.title, m.comments_url, m.link_url,
   tp.team_id, tp.channel_id, tp.display_pattern
 from clippingsbot.mentions m
 left join clippingsbot.team_patterns tp on m.pattern_id = tp.pattern_id
-where not exists (
+where team_id is not null and not exists (
   select 1
   from clippingsbot.notifications n
   where n.team_id = tp.team_id
