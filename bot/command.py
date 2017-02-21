@@ -32,7 +32,7 @@ def show_help():
 
 
 def notify(msg):
-    monitor.notify('%s (user=%s, team=%s (%s)' % (
+    monitor.notify('%s (user=%s, team=%s (%s))' % (
         msg,
         flask.request.form.get('user_name', None),
         flask.request.form.get('team_domain', None),
