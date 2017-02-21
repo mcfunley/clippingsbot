@@ -1,5 +1,6 @@
 from bot import team
 import os
+import sys
 import flask
 import requests
 from urllib.parse import urlencode
@@ -37,6 +38,8 @@ def callback():
 
     data = r.json()
     if not data['ok']:
+        vals = ','.join(['%s=%s' % (k, v) for k, v in data.items()])
+        print('oauth was not ok: %s' % vals, file=sys.stderr)
         return flask.redirect('/?ref=oauth-access-not-ok')
 
     team.save(data)
