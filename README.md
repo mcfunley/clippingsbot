@@ -1,4 +1,9 @@
-# clippingsbot
+# Clippingsbot
+
+Clippingsbot is a Slack bot that watches Hacker News submissions for mentions of words and phrases.
+
+Clippingsbot is a project of [Skyliner](https://www.skyliner.io), a deployment platform for AWS. You can use Skyliner to build your own Slack bot like this one.
+
 
 ## Dev setup
 
