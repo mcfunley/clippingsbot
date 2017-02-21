@@ -1,4 +1,4 @@
-from bot import team, patterns
+from bot import team, patterns, monitor
 import flask
 import os
 import re
@@ -31,6 +31,15 @@ def show_help():
     })
 
 
+def notify(msg):
+    monitor.notify('%s (user=%s, team=%s (%s)' % (
+        msg,
+        request.form.get('user_name', None),
+        request.form.get('team_domain', None),
+        request.form.get('team_id', None),
+    ))
+
+
 def watch(phrase):
     if not len(phrase):
         return 'Sorry, I need a phrase. Usage: `/clippingsbot watch <phrase>`.'
@@ -51,10 +60,12 @@ def watch(phrase):
         return 'Bad request', 400
 
     if team.count_patterns(t) >= 100:
+        notify('too many patterns')
         return 'Sorry, you can watch a maximum of 100 phrases.'
 
     pattern_id = patterns.save(phrase)
     team.watch(t, channel_id, phrase, pattern_id)
+    notify('watched a phrase')
     return ("Ok, I'm watching for mentions of the phrase `%s` "
             "in this channel." % phrase)
 
@@ -76,6 +87,7 @@ def stop(phrase):
         return 'Bad request', 400
 
     team.stop(t, channel_id, phrase)
+    notify('stopped watching a phrase')
     return ("Ok, I won't alert you about mentions of `%s` "
             "in this channel." % phrase)
 
@@ -104,6 +116,8 @@ def list_patterns():
 
     channel_watches = list(team.find_patterns(t, channel_id))
     other_channels_count = team.count_other_channel_patterns(t, channel_id)
+
+    notify('listed patterns')
 
     if other_channels_count > 0:
         if other_channels_count > 1:
@@ -140,6 +154,7 @@ def run():
 
     cmd, args = parse()
     if cmd == 'help':
+        notify('showed help')
         return show_help()
     elif cmd == 'watch':
         return watch(' '.join(args))
@@ -148,4 +163,5 @@ def run():
     elif cmd == 'list':
         return list_patterns()
 
+    notify('unknown command')
     return show_help()

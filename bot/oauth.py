@@ -43,6 +43,6 @@ def callback():
         return flask.redirect('/?ref=oauth-access-not-ok')
 
     team.save(data)
-    monitor.notify('User %s authorized team: %s (%s)' % (
-        data['user_name'], data['team_domain'], data['team_id']))
+    monitor.notify('Authorized team: %s (%s)' % (
+        data['team_name'], data['team_id']))
     return flask.redirect('/installed?team-id=%s' % data['team_id'])
