@@ -8,7 +8,7 @@ def save(pattern, mention):
     ) values (
       :pattern_id, :feed, :title, :comments_url, :link_url
     )
-    on conflict (pattern_id, feed, link_url) do nothing
+    on conflict (pattern_id, feed, comments_url) do nothing
     """
     db.execute(
         sql, pattern_id=pattern['pattern_id'], feed=mention['feed'],
