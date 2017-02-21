@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 from bot import oauth, command
 from flask import Flask, render_template, request, jsonify, session, redirect
+from flask_basicauth import BasicAuth
 import os
 import requests
 import uuid
 from urllib.parse import urlparse, urlunparse
-
+from werkzeug.contrib.fixers import ProxyFix
 
 app = Flask('clippingsbot')
+app.wsgi_app = ProxyFix(app.wsgi_app)
 app.secret_key = os.getenv('SECRET_KEY')
 app.config['TEMPLATES_AUTO_RELOAD'] = bool(
     os.getenv('TEMPLATES_AUTO_RELOAD', False))
+
+if os.getenv('BASIC_AUTH_USERNAME', None):
+    app.config['BASIC_AUTH_FORCE'] = True
+    app.config['BASIC_AUTH_USERNAME'] = os.getenv('BASIC_AUTH_USERNAME')
+    app.config['BASIC_AUTH_PASSWORD'] = os.getenv('BASIC_AUTH_PASSWORD')
 
 
 @app.before_request
