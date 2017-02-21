@@ -34,9 +34,9 @@ def show_help():
 def notify(msg):
     monitor.notify('%s (user=%s, team=%s (%s)' % (
         msg,
-        request.form.get('user_name', None),
-        request.form.get('team_domain', None),
-        request.form.get('team_id', None),
+        flask.request.form.get('user_name', None),
+        flask.request.form.get('team_domain', None),
+        flask.request.form.get('team_id', None),
     ))
 
 
@@ -143,6 +143,10 @@ def list_patterns():
     return '%s %s' % (msg, other_channels_msg)
 
 
+def feedback(args):
+    pass
+
+
 def run():
     request = flask.request
     tok = os.getenv('SLACK_VERIFICATION_TOKEN')
@@ -162,6 +166,8 @@ def run():
         return stop(' '.join(args))
     elif cmd == 'list':
         return list_patterns()
+    elif cmd == 'feedback':
+        return feedback(' '.join(args))
 
     notify('unknown command')
     return show_help()
