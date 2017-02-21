@@ -28,15 +28,15 @@ def set_session_id():
 
 @app.before_request
 def redirect_canonical_host():
-    print(request.url)
-    print(request.headers)
-    return
-
     canonical = os.getenv('CANONICAL_HOST', None)
     if not canonical:
         return
 
-    u = list(urlparse(request.url))
+    request_url = urlparse(request.url)
+    if request_url.path == '/health':
+        return
+
+    u = list(request_url)
     c = list(urlparse(canonical))
     if u[0:2] != c[0:2]:
         u[0:2] = c[0:2]
@@ -48,6 +48,10 @@ def index():
     return render_template('index.jinja', **{
         'authorize_url': oauth.authorize_url()
     })
+
+@app.route('/health')
+def health():
+    return 'ok'
 
 @app.route('/oauth')
 def oauth_callback():

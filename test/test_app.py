@@ -29,3 +29,8 @@ class CanonicalRedirectTest(TestCase):
             r = app.redirect_canonical_host()
             self.assertEqual(r.location, 'https://www.foo.com/thing?x=1')
             self.assertEqual(r.status_code, 303)
+
+    @patch_env({ 'CANONICAL_HOST': 'https://www.foo.com' })
+    def test_exempt_health(self):
+        with patch.object(app, 'request', Mock(url='https://foo.com/health')):
+            self.assertIsNone(app.redirect_canonical_host())
