@@ -35,7 +35,7 @@ createdb clippingsbot
 bin/migrate
 ```
 
-Make a `.env` file, and put environment variables in it (`X="Y"` syntax). You can grep the codebase for `os.getenv` or look at the env settings in Skyliner to get a current list of the ones you need.
+Make a `.env` file, and put environment variables in it (`X="Y"` syntax). You can grep the codebase for `os.getenv` to get a current list of the ones you need.
 
 Running the dev server:
 
