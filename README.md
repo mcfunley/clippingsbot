@@ -4,6 +4,20 @@ Clippingsbot is a Slack bot that watches Hacker News submissions for mentions of
 
 Clippingsbot is a project of [Skyliner](https://www.skyliner.io), a deployment platform for AWS. You can use Skyliner to build your own Slack bot like this one.
 
+## Architecture
+
+The Slack command endpoint is a simple flask app. End users of the bot run `/clippingsbot <command>` in their slack, and that is routed by `bot/app.py` to one of the implementations in `bot/commands.py`.
+
+There is also a worker process (in `bot/worker.py`). The worker does two things:
+
+* It crawls for new mentions of watched phrases.
+* It sends notifications to end users.
+
+The two stages of notification are separated. Mentions found when crawling are stored in an RDS postgres database, and then picked up and turned into notifications in a second pass.
+
+The worker and the web app are run together in a single Docker container using [supervisor](http://supervisord.org/). This is done since they share code, and therefore should have a single deploy button.
+
+Clippingsbot uses [Cloudwatch Events](http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) combined with [SQS](https://aws.amazon.com/sqs/) to run scheduled jobs (i.e., a distributed cron). An event enqueues work in SQS, and the worker process loops in an endless SQS poll dequeueing and dispatching it.
 
 ## Dev setup
 
@@ -40,6 +54,28 @@ To get a dev repl:
 ```
 bin/repl
 ```
+
+### Tests
+
+To run the tests:
+
+```
+python -m unittest -v test
+```
+
+### Coding
+
+Slack doesn't have a great way, short of creating multiple bots, to develop a bot that's already in production. For now, you can do most things from the repl.
+
+```
+$ bin/repl
+>>> from bot import crawl
+>>> crawl.run()
+
+>>> from bot import notify
+>>> notify.run()
+```
+
 
 ## AWS Credentials
 
