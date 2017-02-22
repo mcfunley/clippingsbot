@@ -22,7 +22,7 @@ feedback  Send feedback or bug reports about clippingsbot.
 /clippingsbot stop foobar.com
 ```
 
-Want to build your own Slackbot? Try <https://www.skyliner.io|Skyliner>.
+Want to build your own Slackbot? Try <https://www.skyliner.io?utm_source=clippingsbot&utm_medium=slack&utm_term=help|Skyliner>.
 """
 
 
