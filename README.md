@@ -29,10 +29,10 @@ Running the dev server:
 bin/dev
 ```
 
-Also run the frontend:
+Also run the frontend (in a different console):
 
 ```
-gulp watch
+gulp build && gulp watch
 ```
 
 To get a dev repl:
