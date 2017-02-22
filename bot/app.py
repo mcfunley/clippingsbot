@@ -88,3 +88,11 @@ def cmd():
 @app.route('/favicon.ico', methods=['GET'])
 def favicon():
     return send_file('static/favicon/favicon.ico', mimetype='image/x-icon')
+
+@app.route('/help', methods=['GET'])
+def help():
+    return render_template('help.jinja')
+
+@app.route('/privacy', methods=['GET'])
+def privacy():
+    return render_template('privacy.jinja')

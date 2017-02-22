@@ -1,0 +1,36 @@
+{% extends "layout.jinja" %}
+
+{% block content %}
+
+  {% include "short-header.jinja" %}
+
+  <section>
+    <div class="container">
+      <div class="col-group">
+        <div class="col-offset-1 col-10 col-mb-12">
+          <h2 class="wt300">
+            Getting help for Clippingsbot:
+          </h2>
+
+          <ul id="help-methods">
+            <li>
+              If you have Clippingsbot installed, you can use
+              <code class="inline-code">
+                <span class="command">/clippingsbot feedback</span> &lt;message&gt;</code>
+              to send us a note.
+            </li>
+            <li>
+              You can join the <a class="dark" target="_blank" href="https://slack.skyliner.io">
+              Skyliner support Slack</a> and ping <code class="inline-code">@mcfunley</code>.
+            </li>
+            <li>
+              You can email <a class="dark" href="mailto:support@skyliner.io">Skyliner support</a>.
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
