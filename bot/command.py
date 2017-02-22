@@ -61,9 +61,11 @@ def watch(phrase):
     if not t:
         return 'Bad request', 400
 
-    if team.count_patterns(t) >= 100:
+    if team.count_patterns(t) >= 5:
         notify('too many patterns')
-        return 'Sorry, you can watch a maximum of 100 phrases.'
+        return ('Sorry, you can watch a maximum of five phrases for now. '
+                'We have noted your interest though and will address this if '
+                'it is widespread.')
 
     pattern_id = patterns.save(phrase)
     team.watch(t, channel_id, phrase, pattern_id)
@@ -147,8 +149,8 @@ def list_patterns():
 
 def feedback(text):
     notify('Feedback: "%s"' % text)
-    return ("Thanks! We've got your feedback. If you need more help "
-            "you can email support@skyliner.io.")
+    return ("Thanks! We've got your feedback. Make sure you include "
+            "your email if you'd like a response.")
 
 
 def run():
